@@ -99,17 +99,18 @@ if (subject.id > 0) {
         </a-typography-paragraph>
 
         <!-- 基本信息 -->
-        <div style="display: flex;margin:1.1rem 0;">
+        <div class="base-info">
             <span style="margin-right: 1rem"><FieldTimeOutlined/>&nbsp;放送开始日期：{{ subject.date }}</span>
             <span style="margin-right: 1rem"><BorderlessTableOutlined/>&nbsp;总集数：{{ subject.eps }}</span>
             <span style="margin-right: 1rem"><FireFilled/>&nbsp;排名：{{
-                    subject.rating ? subject.rating.rank : null
+                subject.rating ? subject.rating.rank : null
                 }}</span>
             <span><StarFilled/>&nbsp;评分：{{ subject.rating ? subject.rating.score : null }}</span>
         </div>
 
         <!-- 角色列表 -->
-        <DetailCharacters style="margin-bottom: 1.1rem" :characterList="characterList.slice(0,9)"/>
+        <DetailCharacters class="character-info" style="margin-bottom: 1.1rem"
+                          :characterList="characterList.slice(0,9)"/>
 
         <!-- 标签列表 -->
         <div style="padding: 0.5rem;" v-if="subject.tags.length>0">
@@ -124,13 +125,25 @@ if (subject.id > 0) {
 <style scoped lang="less">
 
 .title {
-    text-align: center;
-    color: inherit;
+  position: relative;
+  text-align: center;
+  color: inherit;
 }
 
 .paragraph {
-    width: 100%;
-    color: inherit;
+  position: relative;
+  width: 100%;
+  color: inherit;
 }
 
+.base-info {
+  position: relative;
+  display: flex;
+  margin: 1.1rem 0;
+  color: inherit;
+}
+
+.character-info {
+  color: inherit;
+}
 </style>

@@ -69,6 +69,7 @@ const subject = ref<Subject>({
     type: 0,
 })
 const subjectLoading = ref(true)
+const wrapperImg = ref('');
 const wrapperStyle = ref({
     backgroundImage: "url()"
 })
@@ -78,6 +79,7 @@ if (!isNaN(bid)) {
         subjectLoading.value = false;
         const bg = subject.value.images.large;
         // 如果背景图片未设置 则取bangumi的背景图片
+        wrapperImg.value = bg
         if (wrapperStyle.value.backgroundImage === 'url()') {
             wrapperStyle.value = {backgroundImage: `url(${bg})`}
         }
@@ -116,6 +118,7 @@ if (isNaN(bid) && isNaN(id)) {
         anime.value = data
         animeLoading.value = false
         // // 如果背景图片未设置 则取anime的背景图片
+        wrapperImg.value = data.cover;
         if (wrapperStyle.value.backgroundImage === 'url()') {
             wrapperStyle.value = {backgroundImage: `url(${data.cover})`}
         }
@@ -204,22 +207,25 @@ function getFormData(): UmaruAnimeForm {
 
 <template>
     <Loading :loading="!isNaN(bid)&&subjectLoading||!isNaN(id)&&animeLoading">
-        <div class="wrapper" :style="wrapperStyle">
-            <div class="mask">
-                <div class="main">
+        <div class="wrapper">
+            <div class="wrapper-img">
+                <img :src="wrapperImg">
+            </div>
 
-                    <div v-if="subject.id>0||anime.id>0">
-                        <!-- bangumi番剧信息-->
-                        <DetailBangumiInfo v-if="subject.id>0" :subject="subject" style="margin: 1.1rem 0"/>
-                        <!-- 下载番剧信息 -->
-                        <DetailAnimeInfo v-else :anime="anime" style="margin: 1.1rem 0"/>
-                        <!-- rss信息 -->
-                        <DetailRssInfo v-if="subject.id>0" :name="subject.name_cn?subject.name_cn:subject.name" @getRssUrl="getRssUrl" style="margin: 1.1rem 0"/>
-                        <!-- 表单 -->
-                        <DetailForm :data="getFormData()" :mode="getFormMode()" style="margin: 1.1rem auto;width: 50%;"/>
-                    </div>
-                    <Empty v-else/>
+            <div class="main">
+                <div v-if="subject.id>0||anime.id>0">
+                    <!-- bangumi番剧信息-->
+                    <DetailBangumiInfo v-if="subject.id>0" :subject="subject" style="margin: 1.1rem 0"/>
+                    <!-- 下载番剧信息 -->
+                    <DetailAnimeInfo v-else :anime="anime" style="margin: 1.1rem 0"/>
+                    <!-- rss信息 -->
+                    <DetailRssInfo v-if="subject.id>0" :name="subject.name_cn?subject.name_cn:subject.name"
+                                   @getRssUrl="getRssUrl" style="margin: 1.1rem 0"/>
+                    <!-- 表单 -->
+                    <DetailForm :data="getFormData()" :mode="getFormMode()"
+                                style="margin: 1.1rem auto;width: 50%;"/>
                 </div>
+                <Empty v-else/>
             </div>
         </div>
     </Loading>
@@ -230,24 +236,22 @@ function getFormData(): UmaruAnimeForm {
 @import "src/assets/css/var";
 
 .wrapper:extend(.content-wrapper) {
-    height: 100%;
-    width: 100%;
-
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-position: center center !important;
+  height: 100%;
+  width: 100%;
 }
 
 .main:extend(.content-main) {
-    color: @detail-color;
-    mix-blend-mode: difference;
+  color: @detail-color;
 }
 
-.mask {
-    height: 100%;
+.wrapper-img {
+  width: calc(100% - 200px);
+  position: fixed;
+
+  filter: brightness(20%);
+
+  img {
     width: 100%;
-    background: rgba(0, 0, 0, .6);
-    overflow: hidden;
+  }
 }
-
 </style>

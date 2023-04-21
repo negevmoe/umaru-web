@@ -157,14 +157,16 @@ getSubjectList();
                     <a-row :gutter="16">
                         <a-col :span="8">
                             <a-form-item label="放送时间" style="margin: 0">
-                                <a-range-picker v-model:value="rangeTime" size="small" format="YYYY-MM-DD" @change="TimeChangeHandler"
+                                <a-range-picker v-model:value="rangeTime" size="small" format="YYYY-MM-DD"
+                                                @change="TimeChangeHandler"
                                                 :placeholder="['开始时间', '结束时间']"/>
                             </a-form-item>
                         </a-col>
 
                         <a-col :span="8">
                             <a-form-item label="排序方式" style="margin: 0">
-                                <a-select size="small" v-model:value="request.sort" placeholder="" @change="routerReplace" :options="sortOptions"/>
+                                <a-select size="small" v-model:value="request.sort" placeholder=""
+                                          @change="routerReplace" :options="sortOptions"/>
                             </a-form-item>
                         </a-col>
                     </a-row>
@@ -175,13 +177,15 @@ getSubjectList();
                             <a-form-item label="评分范围" style="margin: 0">
                                 <a-row :gutter="4" style="justify-content: space-between">
                                     <a-col :span="10">
-                                        <a-select size="small" v-model:value="request.rating_l" placeholder="" @change="getSubjectList" :options="ratingOptions"/>
+                                        <a-select size="small" v-model:value="request.rating_l" placeholder=""
+                                                  @change="getSubjectList" :options="ratingOptions"/>
                                     </a-col>
                                     <a-col :span="2">
                                         <span>至</span>
                                     </a-col>
                                     <a-col :span="10">
-                                        <a-select size="small" v-model:value="request.rating_r" placeholder="" @change="getSubjectList" :options="ratingOptions"/>
+                                        <a-select size="small" v-model:value="request.rating_r" placeholder=""
+                                                  @change="getSubjectList" :options="ratingOptions"/>
                                     </a-col>
                                 </a-row>
 
@@ -212,18 +216,20 @@ getSubjectList();
             <!-- 列表 -->
             <Loading :loading="loading" style="background-color: inherit;">
                 <Empty v-if="searchResponse.data.length===0" style="height: 50px;"/>
-                <SearchSubjectCard v-else v-for="item in searchResponse.data" :key="item.id" :value="item" style="margin-bottom: 1.2rem;"/>
+                <SearchSubjectCard v-else v-for="item in searchResponse.data" :key="item.id" :value="item"
+                                   style="margin-bottom: 1.2rem;"/>
             </Loading>
 
 
             <!-- 分页 -->
             <a-pagination
-                v-model:current="request.page"
-                v-model:pageSize="request.size"
-                show-size-changer
-                :total="searchResponse.total"
-                :show-total="total => `共${total}条`"
-                @showSizeChange="getSubjectList"
+                    v-model:current="request.page"
+                    v-model:pageSize="request.size"
+                    show-size-changer
+                    :total="searchResponse.total"
+                    :show-total="total => `共${total}条`"
+                    @change="getSubjectList"
+                    @showSizeChange="getSubjectList"
             />
 
         </div>

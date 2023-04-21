@@ -199,12 +199,14 @@ getAnimeList()
                             <a-row :gutter="16">
                                 <a-col :span="12">
                                     <a-form-item label="分类" style="margin: 0">
-                                        <a-select size="small" v-model:value="filter.category_id" placeholder="选择分类" @change="getAnimeList" :options="categoryOptions()"/>
+                                        <a-select size="small" v-model:value="filter.category_id" placeholder="选择分类"
+                                                  @change="getAnimeList" :options="categoryOptions()"/>
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="12">
                                     <a-form-item label="排序" style="margin: 0">
-                                        <a-select size="small" v-model:value="filter.sort" placeholder="排序方式" @change="getAnimeList" :options="sortOptions"/>
+                                        <a-select size="small" v-model:value="filter.sort" placeholder="排序方式"
+                                                  @change="getAnimeList" :options="sortOptions"/>
                                     </a-form-item>
                                 </a-col>
                             </a-row>
@@ -213,13 +215,15 @@ getAnimeList()
 
                                 <a-col :span="12">
                                     <a-form-item label="放送时间">
-                                        <a-range-picker v-model:value="playRangeTime" size="small" format="YYYY-MM-DD" @change="playTimeChangeHandler"
+                                        <a-range-picker v-model:value="playRangeTime" size="small" format="YYYY-MM-DD"
+                                                        @change="playTimeChangeHandler"
                                                         :placeholder="['开始时间', '结束时间']"/>
                                     </a-form-item>
                                 </a-col>
                                 <a-col :span="12">
                                     <a-form-item label="创建时间">
-                                        <a-range-picker v-model:value="addRangeTime" size="small" format="YYYY-MM-DD" @change="createTimeChangeHandler"
+                                        <a-range-picker v-model:value="addRangeTime" size="small" format="YYYY-MM-DD"
+                                                        @change="createTimeChangeHandler"
                                                         :placeholder="['开始时间', '结束时间']"/>
                                     </a-form-item>
                                 </a-col>
@@ -231,7 +235,8 @@ getAnimeList()
                                 <a-button size="small" type="primary" @click="getAnimeList">搜索</a-button>
                             </a-form-item>
                             <a-form-item style="margin: 0">
-                                <a-button size="small" type="primary" @click="()=>{createAnimeShow = true}">添加</a-button>
+                                <a-button size="small" type="primary" @click="()=>{createAnimeShow = true}">添加
+                                </a-button>
                             </a-form-item>
                         </a-col>
                     </a-row>
@@ -241,38 +246,40 @@ getAnimeList()
             <!-- 列表 -->
             <loading :loading="loading" style="background-color: inherit;">
                 <Empty v-if="animeList.length===0" style="height: 50px;"/>
-                <AnimeListCard v-else v-for="item in animeList" :key="item.id" :value="item" @deleteAnime="deleteAnime" style="margin-bottom: 1.2rem;"/>
+                <AnimeListCard v-else v-for="item in animeList" :key="item.id" :value="item" @deleteAnime="deleteAnime"
+                               style="margin-bottom: 1.2rem;"/>
             </loading>
 
             <!-- 分页 -->
             <a-pagination
-                v-model:current="filter.page"
-                v-model:pageSize="filter.size"
-                show-size-changer
-                :total="total"
-                :show-total="total => `共${total}条`"
-                @showSizeChange="sizeChangeHandler"
+                    v-model:current="filter.page"
+                    v-model:pageSize="filter.size"
+                    show-size-changer
+                    :total="total"
+                    :show-total="total => `共${total}条`"
+                    @change="getAnimeList"
+                    @showSizeChange="getAnimeList"
             />
         </div>
     </div>
 
-    <!--添加表单-->
-    <!--
-        bangumi_id: 0,
-        category_id: 1,
-        cover: "",
-        episode_filter: "",
-        must_contain: "",
-        must_not_contain: "",
-        play_time: 0,
-        rss_url: "",
-        season: 0,
-        smart_filter: false,
-        title: "",
-        torrent_list: [],
-        total: 0,
-        use_regex: false
-    -->
+  <!--添加表单-->
+  <!--
+      bangumi_id: 0,
+      category_id: 1,
+      cover: "",
+      episode_filter: "",
+      must_contain: "",
+      must_not_contain: "",
+      play_time: 0,
+      rss_url: "",
+      season: 0,
+      smart_filter: false,
+      title: "",
+      torrent_list: [],
+      total: 0,
+      use_regex: false
+  -->
     <a-modal :visible="createAnimeShow" @cancel="()=>{createAnimeShow=false}" @ok="createAnimeFormOk">
         <a-form ref="createAnimeRef"
                 label-align="left"

@@ -3,10 +3,12 @@
 <template>
     <ALayout class="layout">
         <ALayoutSider>
-            <Nav/>
+            <div style="position: fixed">
+                <Nav/>
+            </div>
         </ALayoutSider>
         <a-layout>
-            <a-layout-content style="height: 100%">
+            <a-layout-content class="main">
                 <router-view/>
             </a-layout-content>
         </a-layout>
@@ -19,6 +21,9 @@ import Nav from "@/components/umaru/index/Nav.vue";
 
 <style lang="less" scoped>
 .layout {
-    min-height: 100vh;
+  min-height: 100vh;
+}
+
+.main {
 }
 </style>

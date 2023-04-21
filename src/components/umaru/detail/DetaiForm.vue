@@ -70,8 +70,8 @@ function ruleChangeHandler(rule: UmaruRule) {
     formState.must_contain = rule.must_contain
     formState.must_not_contain = rule.must_not_contain
     formState.episode_filter = rule.episode_filter
-    formState.smart_filter = rule.smart_filter === 1
-    formState.use_regex = rule.use_regex === 1
+    formState.smart_filter = rule.smart_filter
+    formState.use_regex = rule.use_regex
 }
 
 // 表单
@@ -209,24 +209,26 @@ function resetForm() {
         <a-row :gutter="50">
             <a-col :span="16">
                 <a-form
-                    ref="formRef"
-                    :model="formState"
-                    label-align="left"
-                    :label-col="{span:6}"
-                    :colon="false"
+                        ref="formRef"
+                        :model="formState"
+                        label-align="left"
+                        :label-col="{span:6}"
+                        :colon="false"
                 >
                     <a-form-item label="番剧标题" name="title">
                         <a-input v-model:value="formState.title"/>
                     </a-form-item>
                     <a-form-item label="季" name="season">
                         <div>
-                            <a-input-number v-model:value="formState.season" :min="0" :max="999" size="small" style="width:20%"/>
+                            <a-input-number v-model:value="formState.season" :min="0" :max="999" size="small"
+                                            style="width:20%"/>
                             <span style="color: #afafaf;margin-left: 1.2rem;">不填或填0,将从标题中获取</span>
                         </div>
                     </a-form-item>
                     <a-form-item label="分类" name="category">
                         <a-select v-model:value="formState.category_id">
-                            <a-select-option v-for="item in categoryList" :key="item.id" :value="item.id">{{ item.name }}</a-select-option>
+                            <a-select-option v-for="item in categoryList" :key="item.id" :value="item.id">{{item.name }}
+                            </a-select-option>
                         </a-select>
                     </a-form-item>
 
@@ -250,16 +252,24 @@ function resetForm() {
                 </a-form>
             </a-col>
             <a-col :span="8">
-                <a-button v-if="mode===1" :disabled="!props.data.rss_url" type="primary" size="small" class="form-button" @click="createAndSubscribeHandler">
+                <a-button v-if="mode===1" :disabled="!props.data.rss_url" type="primary" size="small"
+                          class="form-button" @click="createAndSubscribeHandler">
                     添加并订阅
                 </a-button>
-                <a-button v-if="mode>1" type="primary" size="small" class="form-button" @click="updateHandler">更新</a-button>
-                <a-button v-if="mode===2" type="primary" size="small" class="form-button" @click="subscribeHandler">订阅</a-button>
-                <a-button v-if="mode===3" type="primary" size="small" class="form-button" @click="deleteConfirm" danger>取消订阅</a-button>
+                <a-button v-if="mode>1" type="primary" size="small" class="form-button" @click="updateHandler">更新
+                </a-button>
+                <a-button v-if="mode===2" type="primary" size="small" class="form-button" @click="subscribeHandler">
+                    订阅
+                </a-button>
+                <a-button v-if="mode===3" type="primary" size="small" class="form-button" @click="deleteConfirm" danger>
+                    取消订阅
+                </a-button>
                 <a-button type="primary" size="small" class="form-button" @click="resetForm">重置</a-button>
 
-                <a-select v-if="mode<=2 " style="width: 100%" placeholder="选择规则" v-model:value="ruleSelectValue" size="small">
-                    <a-select-option v-for="item in ruleList" :key="item.id" :value="item.id" @click="ruleChangeHandler(item)">
+                <a-select v-if="mode<=2 " style="width: 100%" placeholder="选择规则" v-model:value="ruleSelectValue"
+                          size="small">
+                    <a-select-option v-for="item in ruleList" :key="item.id" :value="item.id"
+                                     @click="ruleChangeHandler(item)">
                         {{ item.name }}
                     </a-select-option>
                 </a-select>
@@ -271,19 +281,23 @@ function resetForm() {
 
 
 <style scoped lang="less">
+@import "src/assets/css/var";
+
 .wrapper {
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, .1);
-    background: rgba(255, 255, 255, .1);
-    backdrop-filter: blur(10px);
-    padding: 1.5rem;
-    width: 40%;
-    margin: auto;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  background: rgba(255, 255, 255, .1);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  width: 40%;
+  margin: auto;
 }
 
 .form-button {
-    width: 100%;
-    margin-bottom: 1.1rem
+  color: #fff;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 1.1rem
 }
 
 </style>

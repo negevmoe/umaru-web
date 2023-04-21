@@ -73,7 +73,8 @@ function changeSelectIndex(index: number) {
                         字幕组
                     </a-col>
                     <a-col>
-                        RSS: <a v-if="rssList.length>0" :href="rssList[selectIndex].rss" target="_blank">{{ rssList[selectIndex].rss }} </a>
+                        RSS: <a v-if="rssList.length>0" :href="rssList[selectIndex].rss"
+                                target="_blank">{{ rssList[selectIndex].rss }} </a>
                     </a-col>
                 </a-row>
                 <!-- content -->
@@ -95,17 +96,17 @@ function changeSelectIndex(index: number) {
                             </div>
                             <div v-else>
                                 <a-row
-                                    :gutter="25"
-                                    justify="space-between"
-                                    class="torrent-wrapper"
-                                    v-for="item in feedList.slice(0,30)"
-                                    :key="item.url"
+                                        :gutter="25"
+                                        justify="space-between"
+                                        class="torrent-wrapper"
+                                        v-for="item in feedList.slice(0,30)"
+                                        :key="item.url"
                                 >
                                     <a-col :span="18">
                                         <a-typography-paragraph
-                                            style="color: inherit;margin: 0"
-                                            :ellipsis="{rows:1}"
-                                            :content="item.title"
+                                                style="color: inherit;margin: 0"
+                                                :ellipsis="{rows:1}"
+                                                :content="item.title"
                                         />
                                     </a-col>
                                     <a-col :span="6">
@@ -142,31 +143,31 @@ function changeSelectIndex(index: number) {
 @import "src/assets/css/var";
 
 .header {
-    border-bottom: 1px solid @detail-color;
+  border-bottom: 1px solid @detail-color;
 }
 
 .group-wrapper {
-    border-right: 1px solid @detail-color;
+  border-right: 1px solid @detail-color;
 }
 
 .rss-wrapper {
-    padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1.5rem;
 }
 
 .group {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .group-active:extend(.group) {
-    background: linear-gradient(to right, rgba(0, 0, 0, .1) 0%, rgba(122, 122, 122, 0.8) 50%, rgba(0, 0, 0, .1) 100%);
+  background: linear-gradient(to right, rgba(0, 0, 0, .1) 0%, rgba(122, 122, 122, 0.8) 50%, rgba(0, 0, 0, .1) 100%);
 }
 
 .torrent-wrapper {
-    color: inherit;
+  color: inherit;
 }
 
 .empty {
-    color: inherit;
-    font-size: 1.2rem;
+  color: inherit;
+  font-size: 1.2rem;
 }
 </style>
